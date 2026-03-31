@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vídeo Live - Suporte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://meet.jit.si/external_api.js"></script>
+
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body class="bg-slate-900 h-screen w-screen overflow-hidden flex flex-col font-sans">
+    
+    <div class="bg-slate-800 p-4 flex items-center shadow-lg z-10">
+        <a href="index.html" class="flex items-center text-slate-300 hover:text-white transition-colors">
+            <i data-lucide="chevron-left" class="w-6 h-6 mr-1"></i>
+            <span class="font-semibold text-sm sm:text-base">Sair da Chamada</span>
+        </a>
+        <span class="ml-auto text-xs text-rose-500 font-bold tracking-widest uppercase flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> Live
+        </span>
+    </div>
+
+    <div id="jitsi-container" class="flex-grow w-full bg-black"></div>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        const domain = 'meet.jit.si';
+        const options = {
+            roomName: 'Oquest_Sala_Prueba_01', // Tu sala exacta
+            parentNode: document.querySelector('#jitsi-container'),
+            configOverwrite: {
+                // AQUÍ ESTÁ LA MAGIA: Array vacío = 0 botones
+                toolbarButtons: [], 
+                prejoinPageEnabled: false, 
+                disableDeepLinking: true,
+                startWithAudioMuted: false,
+                startWithVideoMuted: false
+            },
+            interfaceConfigOverwrite: {
+                SHOW_JITSI_WATERMARK: false,
+                SHOW_BRAND_WATERMARK: false,
+                SHOW_WATERMARK_FOR_GUESTS: false,
+                DEFAULT_BACKGROUND: '#000000'
+            }
+        };
+
+        // Iniciar la llamada
+        const api = new JitsiMeetExternalAPI(domain, options);
+    </script>
+</body>
+</html>

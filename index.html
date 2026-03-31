@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-4 font-sans">
+
+    <div class="bg-white p-6 sm:p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/60 w-[95%] max-w-sm text-center border border-slate-100">
+        
+        <div class="mb-6 flex justify-center">
+            <img src="logo.png" alt="Logo Empresa" class="h-14 sm:h-16 w-auto object-contain">
+        </div>
+
+        <div class="mb-8">
+            <h1 class="text-xl sm:text-2xl font-bold text-slate-800 mb-2 leading-tight">
+                Formulário de Ocorrência
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed px-2">
+                Bem-vindo ao suporte técnico.<br class="hidden sm:block"> Selecione uma opção abaixo:
+            </p>
+        </div>
+
+        <div class="flex flex-col gap-3.5">
+            
+            <a href="form.html" class="flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 sm:py-4 px-4 rounded-2xl transition-all active:scale-[0.97] shadow-lg shadow-blue-100">
+                <i data-lucide="file" class="w-5 h-5 flex-shrink-0 opacity-90"></i>
+                <span class="text-base sm:text-lg">Request</span>
+            </a>
+            
+            <a href="live.html" target="_blank" class="flex items-center justify-center gap-3 bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3.5 sm:py-4 px-4 rounded-2xl transition-all active:scale-[0.97] shadow-lg shadow-rose-100">
+                <i data-lucide="video" class="w-5 h-5 flex-shrink-0 opacity-90"></i>
+                <span class="text-base sm:text-lg">Vídeo Live</span>
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 2. Inicializar los iconos de Lucide
+        lucide.createIcons();
+
+        const params = new URLSearchParams(window.location.search);
+        const p1 = params.get('p1');
+        const p2 = params.get('p2');
+        const p3 = params.get('p3');
+
+        if (p1 || p2 || p3) {
+            localStorage.setItem('qr_p1', p1 || '');
+            localStorage.setItem('qr_p2', p2 || '');
+            localStorage.setItem('qr_p3', p3 || '');
+            console.log("Datos del QR guardados temporalmente.");
+        }
+    });
+    </script>
+</body>
+</html>
