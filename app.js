@@ -1,6 +1,6 @@
 /**
- * Proyecto: Dashboard de Ocorrência QR
- * Funcionalidad: Autocompletado, Grabación de Audio y Video (MediaRecorder API)
+ * Project: QR Occurrence Dashboard
+ * Functionality: Autofill, Audio and Video Recording (MediaRecorder API)
  */
 
 let mediaRecorder;
@@ -9,7 +9,7 @@ let currentStream = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. LÓGICA DE AUTOCOMPLETADO DESDE LOCALSTORAGE
+    // 1. AUTOFILL LOGIC FROM LOCALSTORAGE
     // ---------------------------------------------------------------
     const p1Value = localStorage.getItem('qr_p1');
     const p2Value = localStorage.getItem('qr_p2');
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (p2Value) document.getElementById('p2').value = p2Value;
     if (p3Value) document.getElementById('p3').value = p3Value;
 
-    // 2. CONFIGURACIÓN DE ELEMENTOS UI
+    // 2. UI ELEMENTS CONFIGURATION
     // ---------------------------------------------------------------
     const btnAudio = document.getElementById('btn-audio');
     const audioText = document.getElementById('audio-text');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const oquestForm = document.getElementById('oquest-form');
 
-    // 3. GRABACIÓN DE ÁUDIO
+    // 3. AUDIO RECORDING
     // ---------------------------------------------------------------
     btnAudio.addEventListener('click', async () => {
         if (!mediaRecorder || mediaRecorder.state === "inactive") {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. GRABACIÓN DE VÍDEO
+    // 4. VIDEO RECORDING
     // ---------------------------------------------------------------
     btnVideo.addEventListener('click', async () => {
         if (!mediaRecorder || mediaRecorder.state === "inactive") {
@@ -70,6 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 cameraLive.srcObject = stream;
                 cameraLive.classList.remove('hidden');
                 videoPreview.classList.add('hidden');
+                
+                // Smooth scroll down to view the live camera
+                setTimeout(() => {
+                    cameraLive.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
                 
                 iniciarGrabacion(stream, 'video/webm', videoPreview);
                 
@@ -92,30 +97,69 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             mostrarToast("Vídeo gravado!", "sucesso", "check-circle");
+
+            // Optional: Scroll to the recorded video so the user can see it
+            setTimeout(() => {
+                videoPreview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
         }
     });
 
-    // 5. ENVÍO DEL FORMULARIO A SUPABASE
+    // 5. FORM SUBMISSION TO SUPABASE
     // ---------------------------------------------------------------
     oquestForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // 1. If a recording is in progress, stop it and wait for it to process
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+            mostrarToast("A finalizar a gravação em curso...", "aviso", "loader");
+            
+            await new Promise((resolve) => {
+                // Save the original function that processes the file
+                const originalOnStop = mediaRecorder.onstop;
+                
+                // Overwrite it temporarily to know exactly when it finishes
+                mediaRecorder.onstop = (event) => {
+                    originalOnStop(event); // Generates the file and puts it in the preview
+                    resolve(); // Notifies the form that it can continue
+                };
+                
+                // Visually restore buttons in case submission fails
+                if (audioText.innerText === "Parar Gravação") {
+                    audioText.innerText = "Gravar Áudio";
+                    btnAudio.classList.replace('bg-red-600', 'bg-slate-800');
+                }
+                
+                if (btnVideo.innerText === "Parar Gravação") {
+                    btnVideo.innerText = "Gravar Vídeo";
+                    btnVideo.classList.remove('bg-red-50', 'border-red-500', 'text-red-600');
+                    if (currentStream) {
+                        cameraLive.classList.add('hidden');
+                    }
+                }
+                
+                // Execute the stop action
+                mediaRecorder.stop();
+            });
+
+            // Give the browser 100ms extra to ensure the DOM loaded the video/audio
+            await new Promise(r => setTimeout(r, 100));
+        }
         
+        // 2. Check which fields are filled (now with processed files)
         const tieneAudio = !audioPreview.classList.contains('hidden');
         const tieneVideo = !videoPreview.classList.contains('hidden');
+        const textoOcorrencia = document.getElementById('ocorrencia_text').value.trim();
+        const tieneTexto = textoOcorrencia.length > 0;
 
-        if (!tieneAudio) {
-            mostrarToast("Por favor, grave um áudio descrevendo o problema.", "aviso", "alert-triangle");
-            return;
-        }
-
-        if (!tieneVideo) {
-            mostrarToast("Por favor, grave um vídeo mostrando a avaria.", "aviso", "alert-triangle");
+        if (!tieneAudio && !tieneVideo && !tieneTexto) {
+            mostrarToast("Por favor, forneça um áudio, vídeo ou texto descrevendo o problema.", "aviso", "alert-triangle");
             return;
         }
 
         const submitBtn = oquestForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerText;
-        submitBtn.innerText = "A enviar..."; // Quitamos el emoji del reloj de arena
+        submitBtn.innerText = "A enviar...";
         submitBtn.disabled = true;
         submitBtn.classList.add('opacity-70', 'cursor-wait');
 
@@ -130,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             p1_maquina: document.getElementById('p1').value,
             p2_serie: document.getElementById('p2').value,
             p3_modelo: document.getElementById('p3').value,
+            ocorrencia_text: textoOcorrencia,
             audio_id: idAudioAws,
             video_id: idVideoAws
         };
@@ -166,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// FUNCIONES AUXILIARES DE GRABACIÓN
+// RECORDING HELPER FUNCTIONS
 // -------------------------------------------------------------------
 
 function iniciarGrabacion(stream, mimeType, previewElement) {
@@ -196,19 +241,19 @@ function pararGrabacion() {
     }
 }
 
-// NUEVA FUNCIÓN UNIVERSAL DE TOASTS (Con iconos Lucide)
+// NEW UNIVERSAL TOAST FUNCTION (With Lucide icons)
 // -------------------------------------------------------------------
 function mostrarToast(mensagem, tipo, icone) {
     const isGravando = tipo === 'gravando';
     
-    // Determinamos el color de fondo según el tipo
-    let bgColor = "#334155"; // slate-800 por defecto
-    if (tipo === 'sucesso') bgColor = "#10b981"; // verde
-    else if (tipo === 'erro') bgColor = "#ef4444"; // rojo
-    else if (tipo === 'aviso') bgColor = "#f59e0b"; // ámbar
-    else if (tipo === 'gravando') bgColor = "#ef4444"; // rojo
+    // Determine background color based on type
+    let bgColor = "#334155"; // slate-800 default
+    if (tipo === 'sucesso') bgColor = "#10b981"; // green
+    else if (tipo === 'erro') bgColor = "#ef4444"; // red
+    else if (tipo === 'aviso') bgColor = "#f59e0b"; // amber
+    else if (tipo === 'gravando') bgColor = "#ef4444"; // red
 
-    // Creamos un contenedor HTML para el icono y el texto
+    // Create an HTML container for the icon and text
     const contentNode = document.createElement("div");
     contentNode.className = "flex items-center gap-2";
     contentNode.innerHTML = `<i data-lucide="${icone}" class="${isGravando ? 'w-4 h-4' : 'w-5 h-5'}"></i> <span>${mensagem}</span>`;
@@ -228,6 +273,6 @@ function mostrarToast(mensagem, tipo, icone) {
         }
     }).showToast();
 
-    // Obligamos a Lucide a renderizar el icono que acabamos de inyectar en el Toast
+    // Force Lucide to render the icon we just injected into the Toast
     lucide.createIcons();
 }

@@ -25,20 +25,36 @@
     <div id="jitsi-container" class="flex-grow w-full bg-black"></div>
 
     <script>
-        // Inicializar iconos
+        // Initialize Lucide icons
         lucide.createIcons();
 
         const domain = 'meet.jit.si';
         const options = {
-            roomName: 'Oquest_Sala_Prueba_01', // Tu sala exacta
+            roomName: 'Oquest_Sala_Teste_01', // Your specific room name
             parentNode: document.querySelector('#jitsi-container'),
+            
+            // 1. Set a default name to bypass the name prompt
+            userInfo: {
+                displayName: 'Cliente'
+            },
+            
             configOverwrite: {
-                // AQUÍ ESTÁ LA MAGIA: Array vacío = 0 botones
-                toolbarButtons: [], 
+                // 2. Disable the prejoin page (using both old and new methods to be safe)
                 prejoinPageEnabled: false, 
+                prejoinConfig: {
+                    enabled: false
+                },
+                requireDisplayName: false, // Ensure the system doesn't force a name input
+                
+                // 3. Prevent the app download prompt on mobile (opens directly in the browser)
                 disableDeepLinking: true,
+                
+                // 4. Start with audio and video enabled by default
                 startWithAudioMuted: false,
-                startWithVideoMuted: false
+                startWithVideoMuted: false,
+
+                // 5. Hide toolbar buttons so the client interface remains minimal
+                toolbarButtons: [] 
             },
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
@@ -48,7 +64,7 @@
             }
         };
 
-        // Iniciar la llamada
+        // Initialize the Jitsi call API
         const api = new JitsiMeetExternalAPI(domain, options);
     </script>
 </body>
