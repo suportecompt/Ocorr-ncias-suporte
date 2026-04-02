@@ -24,13 +24,15 @@
 
     <div id="jitsi-container" class="flex-grow w-full bg-black"></div>
 
+    <script src="config.js"></script>
+
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
 
-        const domain = 'meet.jit.si';
+        const domain = JITSI_DOMAIN;
         const options = {
-            roomName: 'Oquest_Sala_Teste_01', // Your specific room name
+            roomName: JITSI_ROOM_NAME, // Your specific room name
             parentNode: document.querySelector('#jitsi-container'),
             
             // 1. Set a default name to bypass the name prompt
@@ -54,13 +56,18 @@
                 startWithVideoMuted: false,
 
                 // 5. Hide toolbar buttons so the client interface remains minimal
-                toolbarButtons: [] 
+                toolbarButtons: [],
+
+                // Ocultar botones de la cabecera (incluyendo perfil/login en versiones nuevas)
+                headerButtons: [],
+                disableProfile: true
             },
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_BRAND_WATERMARK: false,
                 SHOW_WATERMARK_FOR_GUESTS: false,
-                DEFAULT_BACKGROUND: '#000000'
+                DEFAULT_BACKGROUND: '#000000',
+                HIDE_CONFERENCE_SUBJECT: true
             }
         };
 
