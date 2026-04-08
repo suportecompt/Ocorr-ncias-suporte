@@ -1,0 +1,15 @@
+p1-service 
+p2-??
+p3-entity
+
+
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§44
+----------------------------------Request-pedido de intervencao
+----------------------------------Video live-???
+----------------------------------Add text area
+----------------------------------1 filled mimum- rest optional
+----------------------------------When rec, move to screen
+----------------------------------If rec vid or audio, and press send, stop automatcally
+----------------------------------Jetsi automatically to room, hard coded room
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§44
+

@@ -60,14 +60,21 @@
 
                 // Ocultar botones de la cabecera (incluyendo perfil/login en versiones nuevas)
                 headerButtons: [],
-                disableProfile: true
+                disableProfile: true,
+
+                // AÑADIDO: Ocultar botón de login / iniciar sesión
+                disableLogin: true,
+                hideLoginButton: true
             },
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_BRAND_WATERMARK: false,
                 SHOW_WATERMARK_FOR_GUESTS: false,
                 DEFAULT_BACKGROUND: '#000000',
-                HIDE_CONFERENCE_SUBJECT: true
+                HIDE_CONFERENCE_SUBJECT: true,
+
+                // AÑADIDO: Ocultar autenticación en la interfaz gráfica
+                AUTHENTICATION_ENABLE: false
             }
         };
 
