@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             top: document.body.scrollHeight,
             behavior: 'smooth' 
         });
-    }, 500); // 300ms de retraso para asegurar que los iconos y estilos cargaron bien
+    }, 300); // 300ms de retraso para asegurar que los iconos y estilos cargaron bien
 
 });
 
