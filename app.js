@@ -213,6 +213,15 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.classList.remove('opacity-70', 'cursor-wait');
         }
     });
+
+    // PASO FINAL: Scroll automático al cargar la página
+    setTimeout(() => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth' 
+        });
+    }, 500); // 300ms de retraso para asegurar que los iconos y estilos cargaron bien
+
 });
 
 // RECORDING HELPER FUNCTIONS
