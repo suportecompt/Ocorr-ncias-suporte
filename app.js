@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tieneAudio = !audioPreview.classList.contains('hidden');
         const tieneVideo = !videoPreview.classList.contains('hidden');
         const textoOcorrencia = document.getElementById('ocorrencia_text').value.trim();
+        const phoneValue = document.getElementById('phone').value.trim(); // NUEVO: Captura del teléfono
         const tieneTexto = textoOcorrencia.length > 0;
 
         if (!tieneAudio && !tieneVideo && !tieneTexto) {
@@ -174,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             p1_maquina: document.getElementById('p1').value,
             p2_serie: document.getElementById('p2').value,
             p3_modelo: document.getElementById('p3').value,
+            phone: phoneValue, // NUEVO: Campo añadido al payload
             ocorrencia_text: textoOcorrencia,
             audio_id: idAudioAws,
             video_id: idVideoAws
@@ -206,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error("Erro no envio:", err.message);
-            mostrarToast(err.message || "Erro ao guardar os dados. Por favor, tente novamente.", "erro", "alert-circle");
+            mostrarToast(err.message || "Erro ao guardar os datos. Por favor, tente novamente.", "erro", "alert-circle");
             
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;

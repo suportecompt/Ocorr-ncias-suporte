@@ -24,13 +24,14 @@ window.SupabaseHelper = {
     guardarOcurrencia: async function(payload) {
         console.log("A guardar dados na tabela via AJAX...");
         
+        // Utilizamos DB_TABLE_URL que viene definido en config.js
         const response = await fetch(DB_TABLE_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'apikey': SUPABASE_ANON_KEY,
-                // FIX APLICADO: Añadido "Bearer " antes de la clave
-                'Authorization': `${SUPABASE_ANON_KEY}`, 
+                // Corrección: Se envía la key directamente sin "Bearer " como solicitaste
+                'Authorization': SUPABASE_ANON_KEY, 
                 'Prefer': 'return=minimal'
             },
             body: JSON.stringify(payload)
