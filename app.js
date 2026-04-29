@@ -166,8 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const timestamp = Date.now(); 
         const customId = `OCO-${timestamp}`; 
         
-        const idAudioAws = tieneAudio ? `audio_${customId}` : null;
-        const idVideoAws = tieneVideo ? `video_${customId}` : null;
+        const idAudioAws = tieneAudio ? `audio_${customId}.mp3` : null;
+        const idVideoAws = tieneVideo ? `video_${customId}.mp4` : null;
 
         const payload = {
             custom_id: customId,
@@ -182,12 +182,16 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (tieneAudio) {
                 const audioBlob = await fetch(audioPreview.src).then(r => r.blob());
-                await window.SupabaseHelper.subirArchivo(idAudioAws, audioBlob);
+                // Forzamos el tipo MIME a audio/mpeg para compatibilidad con .mp3
+                const finalAudioBlob = new Blob([audioBlob], { type: 'audio/mpeg' });
+                await window.SupabaseHelper.subirArchivo(idAudioAws, finalAudioBlob);
             }
 
             if (tieneVideo) {
                 const videoBlob = await fetch(videoPreview.src).then(r => r.blob());
-                await window.SupabaseHelper.subirArchivo(idVideoAws, videoBlob);
+                // Forzamos el tipo MIME a video/mp4
+                const finalVideoBlob = new Blob([videoBlob], { type: 'video/mp4' });
+                await window.SupabaseHelper.subirArchivo(idVideoAws, finalVideoBlob);
             }
 
             await window.SupabaseHelper.guardarOcurrencia(payload);
