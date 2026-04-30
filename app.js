@@ -153,6 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const phoneValue = document.getElementById('phone').value.trim(); // NUEVO: Captura del teléfono
         const tieneTexto = textoOcorrencia.length > 0;
 
+        // Obligar el teléfono
+        if (!phoneValue) {
+            mostrarToast("Por favor, introduza o seu número de contacto.", "aviso", "phone");
+            return; // Detiene el envío
+        }
+
         if (!tieneAudio && !tieneVideo && !tieneTexto) {
             mostrarToast("Por favor, forneça um áudio, vídeo ou texto descrevendo o problema.", "aviso", "alert-triangle");
             return;
