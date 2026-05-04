@@ -49,7 +49,7 @@
                     <textarea id="ocorrencia_text" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none" placeholder="Descreva a avaria."></textarea>
                 </div>
 
-                <div class="space-y-4 mb-2">
+                <div class="space-y-4">
                     <button type="button" id="btn-audio" class="w-full flex items-center justify-center gap-3 bg-slate-800 text-white py-4 rounded-xl font-semibold active:bg-red-600 transition-colors">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                         <span id="audio-text">Gravar Áudio</span>
@@ -64,14 +64,12 @@
                     <video id="video-preview" controls class="hidden w-full rounded-xl mt-2 shadow-md"></video>
                 </div>
 
-                <div class="!mt-2 text-center"> 
-                    <div class="inline-flex items-center gap-2 mb-4 px-2">
-                        <p class="text-[11px] sm:text-xs text-slate-600 font-medium">
-                            Pode colocar descrição ou enviar áudio ou enviar vídeo
-                        </p>
-                    </div>
+                <div class="!mt-0 text-center"> 
+                    <p class="text-[11px] sm:text-xs text-slate-500 font-medium px-2 italic">
+                        Pode colocar descrição ou enviar áudio ou enviar vídeo
+                    </p>
                     
-                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-100 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+                    <button type="submit" class="w-full mt-5 bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-100 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
                         <i data-lucide="send" class="w-5 h-5"></i>
                         Enviar Relatório
                     </button>
