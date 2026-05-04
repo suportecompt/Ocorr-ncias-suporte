@@ -18,11 +18,8 @@
 
         <div class="mb-8">
             <h1 class="text-xl sm:text-2xl font-bold text-slate-800 mb-2 leading-tight">
-                Formulário de Ocorrência
+                Bem vindo !
             </h1>
-            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed px-2">
-                Bem-vindo ao suporte técnico.<br class="hidden sm:block"> Selecione uma opção abaixo:
-            </p>
         </div>
 
         <div class="flex flex-col gap-3.5">
@@ -32,13 +29,28 @@
                 <span class="text-base sm:text-lg">Pedido de intervenção</span>
             </a>
             
-            <a href="live.html" target="_blank" class="flex items-center justify-center gap-3 bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3.5 sm:py-4 px-4 rounded-2xl transition-all active:scale-[0.97] shadow-lg shadow-rose-100">
-                <i data-lucide="video" class="w-5 h-5 flex-shrink-0 opacity-90"></i>
-                <span class="text-base sm:text-lg">Videochamada</span>
-            </a>
+            <div class="flex flex-col gap-2 mt-3">
+                <a href="live.html" target="_blank" class="flex items-center justify-center gap-3 bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3.5 sm:py-4 px-4 rounded-2xl transition-all active:scale-[0.97] shadow-lg shadow-rose-100">
+                    <i data-lucide="video" class="w-5 h-5 flex-shrink-0 opacity-90"></i>
+                    <span class="text-base sm:text-lg">Videochamada</span>
+                </a>
+                <p class="text-[10px] sm:text-xs text-slate-600 italic mt-1">
+                    Utilize apenas quando instruído pelos nossos técnicos
+                </p>
+            </div>
 
         </div>
     </div>
+
+    <footer class="fixed bottom-6 w-full text-center px-4">
+        <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-[11px] sm:text-xs text-slate-400 font-medium">
+            <a href="tel:+351919844399" class="hover:text-blue-600 transition-colors">+351 919 844 399</a>
+            <span class="opacity-30">|</span>
+            <a href="mailto:geral@suporte.com.pt" class="hover:text-blue-600 transition-colors">geral@suporte.com.pt</a>
+            <span class="opacity-30">|</span>
+            <a href="https://suporte.com.pt" target="_blank" class="hover:text-blue-600 transition-colors">suporte.com.pt</a>
+        </div>
+    </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {

@@ -16,37 +16,18 @@
 
     <div class="max-w-md mx-auto">
         
-        <a href="index.html" class="inline-flex items-center text-slate-500 text-sm font-medium mb-6 hover:text-blue-600 transition-colors">
+        <!-- <a href="index.html" class="inline-flex items-center text-slate-500 text-sm font-medium mb-4 hover:text-blue-600 transition-colors">
             <i data-lucide="chevron-left" class="w-5 h-5 mr-1"></i>
             Voltar ao Dashboard
-        </a>
+        </a> -->
 
         <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 p-6 sm:p-8 border border-slate-100">
-            
-            <header class="mb-8 text-center sm:text-left">
-                <h2 class="text-2xl font-bold text-slate-800">Nova Ocorrência</h2>
-                <p class="text-sm text-slate-500 mt-1">Dados automáticos do QR carregados.</p>
-            </header>
 
-            <form id="oquest-form" class="space-y-6">
+            <form id="oquest-form" class="flex flex-col gap-5">
                 
-                <div class="grid grid-cols-1 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 ml-1">ID Máquina (P1)</label>
-                        <input type="text" id="p1" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all" placeholder="ID da máquina">
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 ml-1">Série (P2)</label>
-                            <input type="text" id="p2" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all" placeholder="Série">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 ml-1">Modelo (P3)</label>
-                            <input type="text" id="p3" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all" placeholder="Modelo">
-                        </div>
-                    </div>
-                </div>
+                <input type="hidden" id="p1">
+                <input type="hidden" id="p2">
+                <input type="hidden" id="p3">
 
                 <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                     <label for="phone" class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 ml-1">Número para contacto:</label>
@@ -54,11 +35,13 @@
                         type="tel" 
                         id="phone" 
                         name="tel"
-                        inputmode="tel"
+                        inputmode="numeric" 
+                        pattern="[0-9]*"
                         autocomplete="tel-national"
-                        placeholder="Ex: +351 912 345 678"
+                        required
+                        placeholder="Ex: 912345678"
                         class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                        >
+                    >
                 </div>
 
                 <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
@@ -66,7 +49,7 @@
                     <textarea id="ocorrencia_text" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none" placeholder="Descreva a avaria."></textarea>
                 </div>
 
-                <div class="space-y-4">
+                <div class="space-y-4 mb-2">
                     <button type="button" id="btn-audio" class="w-full flex items-center justify-center gap-3 bg-slate-800 text-white py-4 rounded-xl font-semibold active:bg-red-600 transition-colors">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                         <span id="audio-text">Gravar Áudio</span>
@@ -81,9 +64,18 @@
                     <video id="video-preview" controls class="hidden w-full rounded-xl mt-2 shadow-md"></video>
                 </div>
 
-                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-100 flex items-center justify-center gap-2 mt-8 active:scale-[0.98]">
-                    Enviar Relatório
-                </button>
+                <div class="!mt-2 text-center"> 
+                    <div class="inline-flex items-center gap-2 mb-4 px-2">
+                        <p class="text-[11px] sm:text-xs text-slate-600 font-medium">
+                            Pode colocar descrição ou enviar áudio ou enviar vídeo
+                        </p>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-100 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        Enviar Relatório
+                    </button>
+                </div>
             </form>
         </div>
     </div>

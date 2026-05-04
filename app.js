@@ -19,6 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (p2Value) document.getElementById('p2').value = p2Value;
     if (p3Value) document.getElementById('p3').value = p3Value;
 
+    // FILTRO DE NÚMEROS PARA EL TELÉFONO
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+            // Borra cualquier carácter que no sea un número (0-9)
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+    }
+
+
     // 2. UI ELEMENTS CONFIGURATION
     // ---------------------------------------------------------------
     const btnAudio = document.getElementById('btn-audio');
