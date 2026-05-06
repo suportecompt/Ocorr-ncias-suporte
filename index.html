@@ -22,28 +22,29 @@
             </h1>
         </div>
 
-        <div class="flex flex-col gap-3.5">
+        <div class="flex flex-col gap-4">
             
             <a href="form.html" class="flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 sm:py-4 px-4 rounded-2xl transition-all active:scale-[0.97] shadow-lg shadow-blue-100">
                 <i data-lucide="file" class="w-5 h-5 flex-shrink-0 opacity-90"></i>
                 <span class="text-base sm:text-lg">Pedido de intervenção</span>
             </a>
             
-            <div class="flex flex-col gap-2 mt-3">
-                <a href="live.html" target="_blank" class="flex items-center justify-center gap-3 bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3.5 sm:py-4 px-4 rounded-2xl transition-all active:scale-[0.97] shadow-lg shadow-rose-100">
+            <div class="flex flex-col">
+                <p class="text-[10px] sm:text-xs text-emerald-600 font-medium italic mb-2 text-center">
+                    Utilize apenas cuando instruído pelos nossos técnicos
+                </p>
+                
+                <button id="btn-video-live" class="flex items-center justify-center gap-3 bg-slate-100 text-slate-400 font-semibold py-3.5 sm:py-4 px-4 rounded-2xl transition-all cursor-not-allowed opacity-70">
                     <i data-lucide="video" class="w-5 h-5 flex-shrink-0 opacity-90"></i>
                     <span class="text-base sm:text-lg">Videochamada</span>
-                </a>
-                <p class="text-[10px] sm:text-xs text-slate-600 italic mt-1">
-                    Utilize apenas quando instruído pelos nossos técnicos
-                </p>
+                </button>
             </div>
 
         </div>
     </div>
 
     <footer class="fixed bottom-6 w-full text-center px-4">
-        <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-[11px] sm:text-xs text-slate-400 font-medium">
+        <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-xs sm:text-sm text-slate-500 font-bif">
             <a href="tel:+351919844399" class="hover:text-blue-600 transition-colors">+351 919 844 399</a>
             <span class="opacity-30">|</span>
             <a href="mailto:geral@suporte.com.pt" class="hover:text-blue-600 transition-colors">geral@suporte.com.pt</a>
@@ -51,6 +52,13 @@
             <a href="https://suporte.com.pt" target="_blank" class="hover:text-blue-600 transition-colors">suporte.com.pt</a>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <script src="config.js"></script>
+    <script src="supabase.js"></script>
+    <script src="check-live.js"></script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {

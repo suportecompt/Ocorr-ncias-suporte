@@ -163,10 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const phoneValue = document.getElementById('phone').value.trim(); // NUEVO: Captura del teléfono
         const tieneTexto = textoOcorrencia.length > 0;
 
-        // Obligar el teléfono
+        // Make shure ohne is filed
         if (!phoneValue) {
             mostrarToast("Por favor, introduza o seu número de contacto.", "aviso", "phone");
-            return; // Detiene el envío
+            return;
         }
 
         if (!tieneAudio && !tieneVideo && !tieneTexto) {
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             p1_maquina: document.getElementById('p1').value,
             p2_serie: document.getElementById('p2').value,
             p3_modelo: document.getElementById('p3').value,
-            phone: phoneValue, // NUEVO: Campo añadido al payload
+            phone: phoneValue,
             ocorrencia_text: textoOcorrencia,
             audio_id: idAudioAws,
             video_id: idVideoAws
@@ -200,14 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (tieneAudio) {
                 const audioBlob = await fetch(audioPreview.src).then(r => r.blob());
-                // Forzamos el tipo MIME a audio/mpeg para compatibilidad con .mp3
+                // Force MIME type to audio/mpeg for compatibility with .mp3
                 const finalAudioBlob = new Blob([audioBlob], { type: 'audio/mpeg' });
                 await window.SupabaseHelper.subirArchivo(idAudioAws, finalAudioBlob);
             }
 
             if (tieneVideo) {
                 const videoBlob = await fetch(videoPreview.src).then(r => r.blob());
-                // Forzamos el tipo MIME a video/mp4
+                // Force MIME type to video/mp4
                 const finalVideoBlob = new Blob([videoBlob], { type: 'video/mp4' });
                 await window.SupabaseHelper.subirArchivo(idVideoAws, finalVideoBlob);
             }
@@ -232,13 +232,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // PASO FINAL: Scroll automático al cargar la página
+    // Automatic scroll at loading page
     setTimeout(() => {
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: 'smooth' 
         });
-    }, 300); // 300ms de retraso para asegurar que los iconos y estilos cargaron bien
+    }, 300); // 300ms delay to make shure icons and styles charge properly
 
 });
 
